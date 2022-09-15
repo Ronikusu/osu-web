@@ -201,6 +201,40 @@ class BeatmapsControllerSoloScoresTest extends TestCase
         }
     }
 
+    public function testUserScore()
+    {
+        $url = route('api.beatmaps.user.score', [
+            'beatmap' => static::$beatmap->getKey(),
+            'mods' => ['DT', 'HD'],
+            'user' => static::$user->getKey(),
+        ]);
+        $this->actAsScopedUser(static::$user);
+        $this
+            ->json('GET', $url)
+            ->assertJsonPath('score.id', static::$scores['legacy:userMods']->getKey());
+    }
+
+    public function testUserScoreAll()
+    {
+        $url = route('api.beatmaps.user.scores', [
+            'beatmap' => static::$beatmap->getKey(),
+            'user' => static::$user->getKey(),
+        ]);
+        $this->actAsScopedUser(static::$user);
+        $this
+            ->json('GET', $url)
+            ->assertJsonCount(4, 'scores')
+            ->assertJsonPath(
+                'scores.*.id',
+                array_map(fn (string $key): int => static::$scores[$key]->getKey(), [
+                    'legacy:user',
+                    'legacy:userMods',
+                    'legacy:userModsNC',
+                    'legacy:userModsLowerScore',
+                ])
+            );
+    }
+
     public function dataProviderForTestQuery(): array
     {
         $ret = [];
