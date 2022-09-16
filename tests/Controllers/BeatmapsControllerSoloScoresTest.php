@@ -14,6 +14,7 @@ use App\Models\Country;
 use App\Models\Genre;
 use App\Models\Group;
 use App\Models\Language;
+use App\Models\OAuth;
 use App\Models\Solo\Score;
 use App\Models\User;
 use App\Models\UserGroup;
@@ -166,6 +167,8 @@ class BeatmapsControllerSoloScoresTest extends TestCase
         Genre::truncate();
         Group::truncate();
         Language::truncate();
+        OAuth\Client::truncate();
+        OAuth\Token::truncate();
         Score::truncate();
         User::truncate();
         UserGroup::truncate();
