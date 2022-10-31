@@ -47,19 +47,13 @@ class BeatmapsControllerSoloScoresTest extends TestCase
         $scoreFactory = Score::factory();
         foreach (['solo' => 0, 'legacy' => null] as $type => $buildId) {
             $defaultData = ['build_id' => $buildId];
-            $makeMods = function (array $modNames) use ($type) : array {
-                if ($type === 'legacy') {
-                    $modNames[] = 'CL';
-                }
-
-                return array_map(
-                    fn ($modName) => [
-                        'acronym' => $modName,
-                        'settings' => [],
-                    ],
-                    $modNames,
-                );
-            };
+            $makeMods = fn (array $modNames): array => array_map(
+                fn (string $modName): array => [
+                    'acronym' => $modName,
+                    'settings' => [],
+                ],
+                [...$modNames, ...($type === 'legacy' ? ['CL'] : [])],
+            );
 
             static::$scores = array_merge(static::$scores, [
                 "{$type}:user" => $scoreFactory->withData($defaultData, ['total_score' => 1100])->create([
