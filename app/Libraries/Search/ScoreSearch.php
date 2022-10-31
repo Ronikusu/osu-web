@@ -36,6 +36,10 @@ class ScoreSearch extends RecordSearch
     {
         $query = new BoolQuery();
 
+        if ($this->params->excludeConverts) {
+            $query->filter(['term' => ['convert' => false]]);
+        }
+
         if ($this->params->isLegacy !== null) {
             $query->filter(['term' => ['is_legacy' => $this->params->isLegacy]]);
         }
