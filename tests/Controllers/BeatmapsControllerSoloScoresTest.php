@@ -47,6 +47,19 @@ class BeatmapsControllerSoloScoresTest extends TestCase
         $scoreFactory = Score::factory();
         foreach (['solo' => 0, 'legacy' => null] as $type => $buildId) {
             $defaultData = ['build_id' => $buildId];
+            $makeMods = function (array $modNames) use ($type) : array {
+                if ($type === 'legacy') {
+                    $modNames[] = 'CL';
+                }
+
+                return array_map(
+                    fn ($modName) => [
+                        'acronym' => $modName,
+                        'settings' => [],
+                    ],
+                    $modNames,
+                );
+            };
 
             static::$scores = array_merge(static::$scores, [
                 "{$type}:user" => $scoreFactory->withData($defaultData, ['total_score' => 1100])->create([
@@ -56,7 +69,7 @@ class BeatmapsControllerSoloScoresTest extends TestCase
                 ]),
                 "{$type}:userMods" => $scoreFactory->withData($defaultData, [
                     'total_score' => 1050,
-                    'mods' => static::defaultMods(['DT', 'HD']),
+                    'mods' => $makeMods(['DT', 'HD']),
                 ])->create([
                     'beatmap_id' => static::$beatmap,
                     'preserve' => true,
@@ -64,7 +77,7 @@ class BeatmapsControllerSoloScoresTest extends TestCase
                 ]),
                 "{$type}:userModsNC" => $scoreFactory->withData($defaultData, [
                     'total_score' => 1050,
-                    'mods' => static::defaultMods(['NC']),
+                    'mods' => $makeMods(['NC']),
                 ])->create([
                     'beatmap_id' => static::$beatmap,
                     'preserve' => true,
@@ -72,7 +85,7 @@ class BeatmapsControllerSoloScoresTest extends TestCase
                 ]),
                 "{$type}:otherUserModsNCPFHigherScore" => $scoreFactory->withData($defaultData, [
                     'total_score' => 1010,
-                    'mods' => static::defaultMods(['NC', 'PF']),
+                    'mods' => $makeMods(['NC', 'PF']),
                 ])->create([
                     'beatmap_id' => static::$beatmap,
                     'preserve' => true,
@@ -80,7 +93,7 @@ class BeatmapsControllerSoloScoresTest extends TestCase
                 ]),
                 "{$type}:userModsLowerScore" => $scoreFactory->withData($defaultData, [
                     'total_score' => 1000,
-                    'mods' => static::defaultMods(['DT', 'HD']),
+                    'mods' => $makeMods(['DT', 'HD']),
                 ])->create([
                     'beatmap_id' => static::$beatmap,
                     'preserve' => true,
@@ -94,7 +107,7 @@ class BeatmapsControllerSoloScoresTest extends TestCase
                 // With preference mods
                 "{$type}:otherUser" => $scoreFactory->withData($defaultData, [
                     'total_score' => 1000,
-                    'mods' => static::defaultMods(['PF']),
+                    'mods' => $makeMods(['PF']),
                 ])->create([
                     'beatmap_id' => static::$beatmap,
                     'preserve' => true,
@@ -102,7 +115,7 @@ class BeatmapsControllerSoloScoresTest extends TestCase
                 ]),
                 "{$type}:otherUserMods" => $scoreFactory->withData($defaultData, [
                     'total_score' => 1000,
-                    'mods' => static::defaultMods(['HD', 'PF', 'NC']),
+                    'mods' => $makeMods(['HD', 'PF', 'NC']),
                 ])->create([
                     'beatmap_id' => static::$beatmap,
                     'preserve' => true,
@@ -110,7 +123,7 @@ class BeatmapsControllerSoloScoresTest extends TestCase
                 ]),
                 "{$type}:otherUserModsExtraNonPreferences" => $scoreFactory->withData($defaultData, [
                     'total_score' => 1000,
-                    'mods' => static::defaultMods(['DT', 'HD', 'HR']),
+                    'mods' => $makeMods(['DT', 'HD', 'HR']),
                 ])->create([
                     'beatmap_id' => static::$beatmap,
                     'preserve' => true,
@@ -118,7 +131,7 @@ class BeatmapsControllerSoloScoresTest extends TestCase
                 ]),
                 "{$type}:otherUserModsUnrelated" => $scoreFactory->withData($defaultData, [
                     'total_score' => 1000,
-                    'mods' => static::defaultMods(['FL']),
+                    'mods' => $makeMods(['FL']),
                 ])->create([
                     'beatmap_id' => static::$beatmap,
                     'preserve' => true,
@@ -172,17 +185,6 @@ class BeatmapsControllerSoloScoresTest extends TestCase
         UserGroupEvent::truncate();
         UserRelation::truncate();
         (new ScoreSearch())->deleteAll();
-    }
-
-    private static function defaultMods(array $modNames): array
-    {
-        return array_map(
-            fn ($modName) => [
-                'acronym' => $modName,
-                'settings' => [],
-            ],
-            $modNames,
-        );
     }
 
     /**

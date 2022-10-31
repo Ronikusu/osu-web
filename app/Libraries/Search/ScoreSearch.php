@@ -134,6 +134,9 @@ class ScoreSearch extends RecordSearch
             ? $modsHelper->allIds
             : new Set(array_keys($modsHelper->mods[$this->params->rulesetId]));
         $allMods->remove('PF', 'SD', 'MR');
+        if ($this->params->isLegacy) {
+            $allMods->remove('CL');
+        }
 
         $allSearchMods = [];
         foreach ($mods as $mod) {
