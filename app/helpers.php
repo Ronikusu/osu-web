@@ -19,6 +19,18 @@ function api_version(): int
     return $version;
 }
 
+function array_reject_null(array|ArrayAccess $array): array
+{
+    $ret = [];
+    foreach ($array as $item) {
+        if ($item !== null) {
+            $ret[] = $item;
+        }
+    }
+
+    return $ret;
+}
+
 /*
  * Like array_search but returns null if not found instead of false.
  * Strict mode only.
@@ -153,7 +165,7 @@ function cache_expire_with_fallback(string $key, int $duration = 2592000)
         return;
     }
 
-    $data['expires_at'] = now()->addHour(-1);
+    $data['expires_at'] = now()->addHours(-1);
     Cache::put($fullKey, $data, $duration);
 }
 
@@ -822,14 +834,37 @@ function page_description($extra)
     return blade_safe(implode(' » ', array_map('e', $parts)));
 }
 
+// sync with pageTitleMap in header-v4.tsx
 function page_title()
 {
     $currentRoute = app('route-section')->getCurrent();
     $checkLocale = config('app.fallback_locale');
+
+    $actionKey = "{$currentRoute['namespace']}.{$currentRoute['controller']}.{$currentRoute['action']}";
+    $actionKey = match ($actionKey) {
+        'forum.topic_watches_controller.index' => 'main.home_controller.index',
+        'main.account_controller.edit' => 'main.home_controller.index',
+        'main.beatmapset_watches_controller.index' => 'main.home_controller.index',
+        'main.follows_controller.index' => 'main.home_controller.index',
+        'main.friends_controller.index' => 'main.home_controller.index',
+        default => $actionKey,
+    };
+    $controllerKey = "{$currentRoute['namespace']}.{$currentRoute['controller']}._";
+    $controllerKey = match ($controllerKey) {
+        'main.artist_tracks_controller._' => 'main.artists_controller._',
+        'main.store_controller._' => 'store._',
+        'multiplayer.rooms_controller._' => 'main.ranking_controller._',
+        default => $controllerKey,
+    };
+    $namespaceKey = "{$currentRoute['namespace']}._";
+    $namespaceKey = match ($namespaceKey) {
+        'admin_forum._' => 'admin._',
+        default => $namespaceKey,
+    };
     $keys = [
-        "page_title.{$currentRoute['namespace']}.{$currentRoute['controller']}.{$currentRoute['action']}",
-        "page_title.{$currentRoute['namespace']}.{$currentRoute['controller']}._",
-        "page_title.{$currentRoute['namespace']}._",
+        "page_title.{$actionKey}",
+        "page_title.{$controllerKey}",
+        "page_title.{$namespaceKey}",
     ];
 
     foreach ($keys as $key) {
@@ -884,7 +919,7 @@ function link_to_user($id, $username = null, $color = null, $classNames = null)
         $color ?? ($color = $id->user_colour);
         $id = $id->getKey();
     }
-    $id = e($id);
+    $id = presence(e($id));
     $username = e($username);
     $style = user_color_style($color, 'color');
 
@@ -1267,7 +1302,7 @@ function json_item($model, $transformer, $includes = null)
 
 function fast_imagesize($url)
 {
-    $result = Cache::remember("imageSize:{$url}", Carbon\Carbon::now()->addMonth(1), function () use ($url) {
+    $result = Cache::remember("imageSize:{$url}", Carbon\Carbon::now()->addMonths(1), function () use ($url) {
         $curl = curl_init($url);
         curl_setopt_array($curl, [
             CURLOPT_HTTPHEADER => [
@@ -1604,9 +1639,9 @@ function parse_time_to_carbon($value)
     }
 }
 
-function format_duration_for_display($seconds)
+function format_duration_for_display(int $seconds)
 {
-    return floor($seconds / 60).':'.str_pad($seconds % 60, 2, '0', STR_PAD_LEFT);
+    return floor($seconds / 60).':'.str_pad((string) ($seconds % 60), 2, '0', STR_PAD_LEFT);
 }
 
 // Converts a standard image url to a retina one
@@ -1800,13 +1835,9 @@ function search_error_message(?Exception $e): ?string
 /**
  * Gets the path to a versioned resource.
  *
- * @param string $resource
- * @param string $manifest
- * @return HtmlString
- *
  * @throws Exception
  */
-function unmix(string $resource)
+function unmix(string $resource): HtmlString
 {
     return app('assets-manifest')->src($resource);
 }

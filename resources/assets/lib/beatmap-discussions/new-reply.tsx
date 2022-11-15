@@ -17,6 +17,7 @@ import { onError } from 'utils/ajax';
 import { validMessageLength } from 'utils/beatmapset-discussion-helper';
 import { InputEventType, makeTextAreaHandler, TextAreaCallback } from 'utils/input-handler';
 import { hideLoadingOverlay, showLoadingOverlay } from 'utils/loading-overlay';
+import { present } from 'utils/string';
 import MessageLengthCounter from './message-length-counter';
 
 const bn = 'beatmap-discussion-post';
@@ -41,11 +42,12 @@ const actionResolveLookup = {
 @observer
 export class NewReply extends React.Component<Props> {
   @observable private readonly box = React.createRef<HTMLTextAreaElement>();
-  @observable private editing = osu.present(this.storedMessage);
+  @observable private editing = present(this.storedMessage);
   private readonly handleKeyDown;
   @observable private message = this.storedMessage;
   @observable private posting: string | null = null;
   private postXhr: JQuery.jqXHR<BeatmapsetDiscussionPostStoreResponseJson> | null = null;
+  private startEditing = false;
 
   private get canReopen() {
     return this.props.discussion.can_be_resolved && this.props.discussion.current_user_attributes.can_reopen;
@@ -78,17 +80,17 @@ export class NewReply extends React.Component<Props> {
     this.handleKeyDown = makeTextAreaHandler(this.handleKeyDownCallback);
   }
 
+  @action
   componentDidUpdate(prevProps: Readonly<Props>) {
     if (prevProps.discussion.id !== this.props.discussion.id) {
       this.message = this.storedMessage;
       return;
     }
 
-    if (this.editing) {
+    if (this.startEditing) {
+      this.startEditing = false;
       this.box.current?.focus();
     }
-
-    this.storeMessage();
   }
 
   componentWillUnmount() {
@@ -103,6 +105,11 @@ export class NewReply extends React.Component<Props> {
   private readonly editStart = () => {
     if (core.userLogin.showIfGuest(this.editStart)) return;
     this.editing = true;
+    this.startEditing = true;
+  };
+
+  private readonly handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    this.setMessage(e.target.value);
   };
 
   @action
@@ -119,10 +126,10 @@ export class NewReply extends React.Component<Props> {
 
   @action
   private readonly onCancelClick = () => {
-    if (osu.present(this.message) && !confirm(osu.trans('common.confirmation_unsaved'))) return;
+    if (present(this.message) && !confirm(osu.trans('common.confirmation_unsaved'))) return;
 
     this.editing = false;
-    this.message = '';
+    this.setMessage('');
   };
 
   @action
@@ -152,7 +159,7 @@ export class NewReply extends React.Component<Props> {
     this.postXhr
       .done((json) => runInAction(() => {
         this.editing = false;
-        this.message = '';
+        this.setMessage('');
         $.publish('beatmapDiscussionPost:markRead', { id: json.beatmap_discussion_post_ids });
         $.publish('beatmapsetDiscussions:update', { beatmapset: json.beatmapset });
       }))
@@ -177,7 +184,7 @@ export class NewReply extends React.Component<Props> {
               ref={this.box}
               className={`${bn}__message ${bn}__message--editor`}
               disabled={this.posting != null}
-              onChange={this.setMessage}
+              onChange={this.handleChange}
               onKeyDown={this.handleKeyDown}
               placeholder={osu.trans('beatmaps.discussions.reply_placeholder')}
               value={this.message}
@@ -253,12 +260,10 @@ export class NewReply extends React.Component<Props> {
   }
 
   @action
-  private readonly setMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    this.message = e.target.value;
-  };
+  private setMessage(message: string) {
+    this.message = message;
 
-  private storeMessage() {
-    if (!osu.present(this.message)) {
+    if (!present(this.message)) {
       localStorage.removeItem(this.storageKey);
     } else {
       localStorage.setItem(this.storageKey, this.message);

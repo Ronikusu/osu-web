@@ -6,6 +6,8 @@ import * as React from 'react'
 import { div, form, input, label, span } from 'react-dom-factories'
 import { fileuploadFailCallback } from 'utils/ajax'
 import { classWithModifiers } from 'utils/css'
+import { formatBytes } from 'utils/html'
+import { popup } from 'utils/popup'
 import { nextVal } from 'utils/seq'
 
 el = React.createElement
@@ -71,14 +73,25 @@ export class Uploader extends React.Component
         extension = /(\.[^.]+)$/.exec(file.name)[1]
 
         if !_.includes(allowedExtensions, extension)
-          osu.popup osu.trans("contest.entry.wrong_type.#{@props.contest.type}"), 'danger'
+          popup osu.trans("contest.entry.wrong_type.#{@props.contest.type}"), 'danger'
           return
 
         if file.size > maxSize
-          osu.popup osu.trans('contest.entry.too_big', limit: osu.formatBytes(maxSize, 0)), 'danger'
+          popup osu.trans('contest.entry.too_big', limit: formatBytes(maxSize, 0)), 'danger'
           return
 
-        data.submit()
+        if @props.contest.type != 'art' || !@props.contest.forced_width && !@props.contest.forced_height
+          data.submit()
+          return
+
+        @convertFileToImage(file).then (image) =>
+          if image.width == @props.contest.forced_width && image.height == @props.contest.forced_height
+            data.submit()
+            return
+
+          popup osu.trans('contest.entry.wrong_dimensions',
+            width: @props.contest.forced_width,
+            height: @props.contest.forced_height), 'danger'
 
       submit: ->
         $.publish 'dragendGlobal'
@@ -88,12 +101,24 @@ export class Uploader extends React.Component
 
       fail: fileuploadFailCallback
 
+
   componentWillUnmount: =>
     $.unsubscribe ".#{@eventId}"
 
     @$uploadButton()
       .fileupload 'destroy'
       .remove()
+
+
+  convertFileToImage: (file) =>
+    new Promise (resolve, reject) ->
+      image = new Image()
+      reader = new FileReader()
+      reader.onload = () -> image.src = reader.result
+      reader.onerror = (error) -> reject(error)
+      image.onload = () -> resolve(image)
+      reader.readAsDataURL(file)
+
 
   render: =>
     div

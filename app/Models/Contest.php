@@ -290,7 +290,11 @@ class Contest extends Model
             $includes[] = 'results';
         }
 
-        $contestJson = json_item($this, new ContestTransformer());
+        $contestJson = json_item(
+            $this,
+            new ContestTransformer(),
+            $this->show_votes ? ['users_voted_count'] : null,
+        );
         if ($this->isVotingStarted()) {
             $contestJson['entries'] = json_collection($this->entriesByType($user), new ContestEntryTransformer(), $includes);
         }
@@ -343,6 +347,15 @@ class Contest extends Model
         );
     }
 
+    public function usersVotedCount(): int
+    {
+        return cache()->remember(
+            static::class.':'.__FUNCTION__.':'.$this->getKey(),
+            300,
+            fn () => $this->votes()->distinct('user_id')->count(),
+        );
+    }
+
     public function url()
     {
         return route('contests.show', $this->id);
@@ -359,5 +372,15 @@ class Contest extends Model
         return $this->memoize(__FUNCTION__, function () {
             return $this->extra_options;
         });
+    }
+
+    public function getForcedWidth()
+    {
+        return $this->getExtraOptions()['forced_width'] ?? null;
+    }
+
+    public function getForcedHeight()
+    {
+        return $this->getExtraOptions()['forced_height'] ?? null;
     }
 }

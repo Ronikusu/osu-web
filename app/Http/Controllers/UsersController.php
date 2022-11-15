@@ -62,6 +62,11 @@ class UsersController extends Controller
 
     protected $maxResults = 100;
 
+    private ?string $mode = null;
+    private ?int $offset = null;
+    private ?int $perPage = null;
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->middleware('guest', ['only' => 'store']);
@@ -94,7 +99,7 @@ class UsersController extends Controller
             'only' => ['extraPages', 'scores', 'beatmapsets', 'kudosu', 'recentActivity'],
         ]);
 
-        return parent::__construct();
+        parent::__construct();
     }
 
     public function card($id)
@@ -465,7 +470,6 @@ class UsersController extends Controller
      * beatmap    | |
      * beatmapset | |
      * weight     | Only for type `best`.
-     * user       | |
      *
      * @urlParam user integer required Id of the user. Example: 1
      * @urlParam type string required Score type. Must be one of these: `best`, `firsts`, `recent`. Example: best
@@ -582,6 +586,7 @@ class UsersController extends Controller
      * - page
      * - pending_beatmapset_count
      * - previous_usernames
+     * - rank_highest
      * - rank_history
      * - ranked_beatmapset_count
      * - replays_watched_counts
@@ -873,6 +878,7 @@ class UsersController extends Controller
             'account_history',
             'page',
             'pending_beatmapset_count',
+            'rank_highest',
             'rank_history',
             'statistics',
             'statistics.country_rank',
