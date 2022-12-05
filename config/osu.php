@@ -164,6 +164,7 @@ return [
         'storage' => env('SCORE_REPLAYS_STORAGE', 'local'),
     ],
     'scores' => [
+        'es_enable_legacy_filter' => get_bool(env('SCORES_ES_ENABLE_LEGACY_FILTER')) ?? true,
         'es_cache_duration' => 60 * (get_float(env('SCORES_ES_CACHE_DURATION')) ?? 0.5), // in minutes, converted to seconds
         'rank_cache' => [
             'local_server' => get_bool(env('SCORES_RANK_CACHE_LOCAL_SERVER')) ?? false,
