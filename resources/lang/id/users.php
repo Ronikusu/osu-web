@@ -217,6 +217,9 @@ return [
                 'loved' => [
                     'title' => 'Beatmap Loved',
                 ],
+                'nominated' => [
+                    'title' => '',
+                ],
                 'pending' => [
                     'title' => 'Beatmap Pending',
                 ],
@@ -414,6 +417,7 @@ return [
             'country_simple' => 'Peringkat Negara',
             'global' => 'Peringkat global untuk :mode',
             'global_simple' => 'Peringkat Global',
+            'highest' => 'Peringkat tertinggi: :rank pada :date',
         ],
         'stats' => [
             'hit_accuracy' => 'Akurasi Hit',

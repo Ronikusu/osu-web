@@ -105,7 +105,7 @@ class Score extends Model implements Traits\ReportableInterface
      */
     public function scopeIndexable(Builder $query): Builder
     {
-        return $this
+        return $query
             ->where('preserve', true)
             ->whereHas('user', fn (Builder $q): Builder => $q->default());
     }
@@ -217,6 +217,11 @@ class Score extends Model implements Traits\ReportableInterface
     public function trashed(): bool
     {
         return false;
+    }
+
+    public function url(): string
+    {
+        return route('scores.show', $this);
     }
 
     public function userRank(?array $params = null): int

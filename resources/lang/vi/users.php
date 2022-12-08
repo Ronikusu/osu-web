@@ -217,6 +217,9 @@ return [
                 'loved' => [
                     'title' => 'Loved Beatmaps',
                 ],
+                'nominated' => [
+                    'title' => '',
+                ],
                 'pending' => [
                     'title' => 'Beatmap Đang Chờ',
                 ],
@@ -414,6 +417,7 @@ return [
             'country_simple' => 'Hạng Quốc Gia',
             'global' => 'Hạng quốc tế cho :mode',
             'global_simple' => 'Hạng Toàn Cầu',
+            'highest' => '',
         ],
         'stats' => [
             'hit_accuracy' => 'Độ Chính Xác',
