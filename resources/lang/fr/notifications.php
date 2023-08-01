@@ -13,6 +13,16 @@ return [
     'see_channel' => 'accéder au tchat',
     'verifying' => 'Veuillez vérifier votre session pour voir les notifications',
 
+    'action_type' => [
+        '_' => 'toutes',
+        'beatmapset' => 'beatmaps',
+        'build' => 'versions',
+        'channel' => 'tchat',
+        'forum_topic' => 'forum',
+        'news_post' => 'actualités',
+        'user' => 'profil',
+    ],
+
     'filters' => [
         '_' => 'tout',
         'user' => 'profil',
@@ -140,15 +150,6 @@ return [
                 '_' => 'Nouvelle réponse du forum',
                 'forum_topic_reply' => ':username a répondu au sujet du forum ":title"',
                 'forum_topic_reply_compact' => ':username a répondu',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => 'Ancienne page forum des messages privés',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited message non lu|:count_delimited messages non lus',
             ],
         ],
 

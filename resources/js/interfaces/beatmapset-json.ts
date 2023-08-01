@@ -11,6 +11,11 @@ import GenreJson from './genre-json';
 import LanguageJson from './language-json';
 import UserJson, { UserJsonDeleted } from './user-json';
 
+export interface Availability {
+  download_disabled: boolean;
+  more_information: string | null;
+}
+
 interface BeatmapsetCovers {
   card: string;
   cover: string;
@@ -24,7 +29,11 @@ interface BeatmapsetDescription {
 }
 
 interface BaseNominationsInterface {
+  disqualification?: BeatmapsetEventJson;
   nominated?: boolean;
+  nomination_reset?: BeatmapsetEventJson;
+  ranking_eta?: string;
+  ranking_queue_position?: number;
   required_hype: number;
 }
 
@@ -47,20 +56,23 @@ export type BeatmapsetStatus =
   'graveyard' | 'wip' | 'pending' | 'ranked' | 'approved' | 'qualified' | 'loved';
 
 export interface CurrentUserAttributes {
+  can_beatmap_update_owner: boolean;
   can_delete: boolean;
   can_edit_metadata: boolean;
   can_edit_offset: boolean;
+  can_edit_tags: boolean;
   can_hype: boolean;
   can_hype_reason: string;
   can_love: boolean;
   can_remove_from_loved: boolean;
   is_watching: boolean;
-  new_hype_time: string;
+  new_hype_time: string | null;
   nomination_modes: Partial<Record<GameMode, 'full' | 'limited'>>;
   remaining_hype: number;
 }
 
 interface BeatmapsetJsonAvailableIncludes {
+  availability: Availability;
   beatmaps: BeatmapJson[];
   converts: BeatmapExtendedJson[];
   current_nominations: BeatmapsetNominationJson[];
@@ -107,6 +119,3 @@ interface BeatmapsetJsonDefaultAttributes {
 
 type BeatmapsetJson = BeatmapsetJsonDefaultAttributes & Partial<BeatmapsetJsonAvailableIncludes>;
 export default BeatmapsetJson;
-
-type DiscussionsRequiredAttributes = 'beatmaps' | 'current_user_attributes' | 'discussions' | 'events' | 'nominations' | 'related_users';
-export type BeatmapsetWithDiscussionsJson = BeatmapsetJson & Required<Pick<BeatmapsetJson, DiscussionsRequiredAttributes>>;

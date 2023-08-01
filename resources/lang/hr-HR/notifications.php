@@ -13,6 +13,16 @@ return [
     'see_channel' => 'idi u chat',
     'verifying' => 'Molimo potvrdi sesiju za pregled obavijesti',
 
+    'action_type' => [
+        '_' => '',
+        'beatmapset' => '',
+        'build' => '',
+        'channel' => '',
+        'forum_topic' => '',
+        'news_post' => '',
+        'user' => '',
+    ],
+
     'filters' => [
         '_' => 'svi',
         'user' => 'profil',
@@ -140,15 +150,6 @@ return [
                 '_' => 'Novi odgovor na forumu',
                 'forum_topic_reply' => ':username je odgovorio/la na ":title"',
                 'forum_topic_reply_compact' => ':username je odgovorio/la',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => 'Legacy Forum PM',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited nepročitana poruka|:count_delimited nepročitane poruke',
             ],
         ],
 

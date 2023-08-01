@@ -13,6 +13,16 @@ return [
     'see_channel' => 'перейти до чату',
     'verifying' => 'Будь ласка, перевірте сеанс, щоб переглянути сповіщення',
 
+    'action_type' => [
+        '_' => 'всі',
+        'beatmapset' => 'мапи',
+        'build' => 'збірки',
+        'channel' => 'чат',
+        'forum_topic' => 'форум',
+        'news_post' => 'новини',
+        'user' => 'профіль',
+    ],
+
     'filters' => [
         '_' => 'усе',
         'user' => 'профіль',
@@ -140,15 +150,6 @@ return [
                 '_' => 'Нова відповідь на форумі',
                 'forum_topic_reply' => ':username відповів в темі ":title".',
                 'forum_topic_reply_compact' => ':username відповів',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => 'Вхідні повідомлення старого форуму',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited непрочитане повідомлення.|:count_delimited непрочитані повідомлення.',
             ],
         ],
 

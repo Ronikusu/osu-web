@@ -7,12 +7,14 @@ namespace App\Transformers;
 
 use App\Models\ContestEntry;
 use App\Models\DeletedUser;
+use Sentry\State\Scope;
 
 class ContestEntryTransformer extends TransformerAbstract
 {
     protected array $availableIncludes = [
-        'results',
         'artMeta',
+        'results',
+        'user',
     ];
 
     public function transform(ContestEntry $entry)
@@ -34,9 +36,15 @@ class ContestEntryTransformer extends TransformerAbstract
     {
         return $this->primitive([
             'actual_name' => $entry->name,
-            'user_id' => $entry->user_id,
-            'username' => ($entry->user ?? (new DeletedUser()))->username,
             'votes' => (int) $entry->votes_count,
+        ]);
+    }
+
+    public function includeUser(ContestEntry $entry)
+    {
+        return $this->primitive([
+            'id' => $entry->user_id,
+            'username' => ($entry->user ?? (new DeletedUser()))->username,
         ]);
     }
 
@@ -46,12 +54,23 @@ class ContestEntryTransformer extends TransformerAbstract
             return $this->primitive([]);
         }
 
+        $thumbnailUrl = $entry->thumbnail();
         // suffix urls when contests are made live to ensure image dimensions are forcibly rechecked
         if ($entry->contest->visible) {
-            $urlSuffix = str_contains($entry->thumbnail(), '?') ? '&live' : '?live';
+            $urlSuffix = str_contains($thumbnailUrl, '?') ? '&live' : '?live';
         }
 
-        $size = fast_imagesize($entry->thumbnail().($urlSuffix ?? ''));
+        $size = fast_imagesize($thumbnailUrl.($urlSuffix ?? ''));
+
+        if ($size === null) {
+            app('sentry')->getClient()->captureMessage(
+                'Failed fetching image size of contest entry',
+                null,
+                (new Scope())
+                    ->setExtra('id', $entry->getKey())
+                    ->setExtra('url', $thumbnailUrl),
+            );
+        }
 
         return $this->primitive([
             'width' => $size[0] ?? 0,

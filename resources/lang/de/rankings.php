@@ -17,20 +17,27 @@ return [
         ],
     ],
 
+    'kudosu' => [
+        'total' => 'Verdient',
+        'available' => 'Verfügbar',
+        'used' => 'Ausgegeben',
+    ],
+
     'type' => [
-        'charts' => 'spotlights',
-        'country' => 'länder',
-        'multiplayer' => 'mehrspieler',
-        'performance' => 'performance',
-        'score' => 'punktzahl',
-        'seasons' => '',
+        'charts' => 'Spotlights',
+        'country' => 'Länder',
+        'kudosu' => 'Kudosu',
+        'multiplayer' => 'Mehrspieler',
+        'performance' => 'Performance',
+        'score' => 'Punktzahl',
+        'seasons' => 'Seasons',
     ],
 
     'seasons' => [
-        'empty' => '',
-        'ongoing' => '',
-        'room_count' => '',
-        'url' => '',
+        'empty' => 'Es existieren noch keine Räume in dieser Season.',
+        'ongoing' => 'Diese Season ist noch im Gange (es werden weitere Playlists hinzugefügt).',
+        'room_count' => 'Anzahl der Playlists',
+        'url' => 'Weitere Informationen zu dieser Season anzeigen.',
     ],
 
     'spotlight' => [

@@ -13,6 +13,16 @@ return [
     'see_channel' => '前往聊天',
     'verifying' => '請驗證此工作階段以查看通知',
 
+    'action_type' => [
+        '_' => '全部',
+        'beatmapset' => '圖譜',
+        'build' => '版本',
+        'channel' => '聊天',
+        'forum_topic' => '論壇',
+        'news_post' => '新聞',
+        'user' => '個人資料',
+    ],
+
     'filters' => [
         '_' => '全部',
         'user' => '個人簡介',
@@ -143,15 +153,6 @@ return [
             ],
         ],
 
-        'legacy_pm' => [
-            '_' => '舊論壇私訊',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited 則未讀訊息',
-            ],
-        ],
-
         'user' => [
             'user_beatmapset_new' => [
                 '_' => '新圖譜',
@@ -210,7 +211,7 @@ return [
 
         'channel' => [
             'announcement' => [
-                'announce' => '',
+                'announce' => '在 ":name" 中有一條新通知',
             ],
 
             'channel' => [
@@ -244,7 +245,7 @@ return [
 
             'user_beatmapset_new' => [
                 'user_beatmapset_new' => ':username 建立了新圖譜',
-                'user_beatmapset_revive' => '',
+                'user_beatmapset_revive' => ':username 復原了圖譜',
             ],
         ],
     ],

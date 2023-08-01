@@ -7,29 +7,24 @@
     $selectorParams = [
         'type' => $type,
         'mode' => $mode,
-        'route' => function($routeMode, $routeType) use ($country, $spotlight) {
-            if ($routeType === 'country') {
-                return route('rankings', ['mode' => $routeMode, 'type' => $routeType]);
+        'route' => fn ($routeMode, $routeType) => (
+            match ($routeType) {
+                'country' => route('rankings', ['mode' => $routeMode, 'type' => $routeType]),
+                'multiplayer' => route('multiplayer.rooms.show', ['room' => 'latest']),
+                'seasons' => route('seasons.show', ['season' => 'latest']),
+                'kudosu' => route('rankings.kudosu'),
+                default => trim(route('rankings', [
+                    'mode' => $routeMode,
+                    'type' => $routeType,
+                    'spotlight' => $routeType === 'charts' ? $spotlight ?? null : null,
+                    'country' => $routeType === 'performance' ? ($country['acronym'] ?? null) : null,
+                ]), '?')
             }
-
-            if ($routeType === 'multiplayer') {
-                return route('multiplayer.rooms.show', ['room' => 'latest']);
-            }
-            if ($routeType === 'seasons') {
-                return route('seasons.show', ['season' => 'latest']);
-            }
-
-            return trim(route('rankings', [
-                'mode' => $routeMode,
-                'type' => $routeType,
-                'spotlight' => $routeType === 'charts' ? $spotlight ?? null : null,
-                'country' => $routeType === 'performance' ? ($country['acronym'] ?? null) : null,
-            ]), '?');
-        }
+        )
     ];
 
     $links = [];
-    foreach (['performance', 'charts', 'score', 'country', 'multiplayer', 'seasons'] as $tab) {
+    foreach (['performance', 'charts', 'score', 'country', 'multiplayer', 'seasons', 'kudosu'] as $tab) {
         $links[] = [
             'active' => $tab === $type,
             'title' => osu_trans("rankings.type.{$tab}"),
@@ -37,16 +32,7 @@
         ];
     }
 
-    if ($type === 'performance') {
-        $variants = App\Models\Beatmap::VARIANTS[$mode] ?? null;
-
-        if ($variants !== null) {
-            array_unshift($variants, 'all');
-        }
-    }
-
     $hasMode = $hasMode ?? true;
-    $hasFilter = $hasFilter ?? true;
     $hasScores = $hasScores ?? true;
 @endphp
 
@@ -67,62 +53,6 @@
     @endcomponent
 
     @yield('ranking-header')
-
-    @if ($hasFilter)
-        <div class="osu-page osu-page--description">
-            <div
-                class="js-react--ranking-filter"
-                data-type="{{ $type }}"
-                data-game-mode="{{ $mode }}"
-                data-variants="{{ json_encode($variants ?? null) }}"
-            >
-                {{-- placeholder so the page doesn't shift after react initializes --}}
-                <div class="ranking-filter">
-                    <div class="ranking-filter__item ranking-filter__item--full">
-                        @if ($type === 'performance')
-                            <div class="ranking-filter__item--title">
-                                {{ osu_trans('rankings.countries.title') }}
-                            </div>
-                            <div class="select-options select-options--ranking">
-                                <div class="select-options__select">
-                                    <div class="select-options__option">{{ $country?->name ?? osu_trans('rankings.countries.all') }}</div>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                    @if (auth()->check())
-                        <div class="ranking-filter__item">
-                            <div class="ranking-filter__item--title">
-                                {{ osu_trans('rankings.filter.title') }}
-                            </div>
-                            <div class="sort">
-                                <div class="sort__items">
-                                    <button class="sort__item sort__item--button">{{ osu_trans('sort.all') }}</button>
-                                    <button class="sort__item sort__item--button">{{ osu_trans('sort.friends')}}</button>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                    @if (isset($variants))
-                        <div class="ranking-filter__item">
-                            <div class="ranking-filter__item--title">
-                                {{ osu_trans('rankings.filter.variant.title') }}
-                            </div>
-                            <div class="sort">
-                                <div class="sort__items">
-                                    @foreach ($variants as $v)
-                                        <button class="sort__item sort__item--button">
-                                            {{ osu_trans("beatmaps.variant.{$mode}.{$v}") }}
-                                        </button>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-    @endif
 
     @if ($hasScores)
         <div class="osu-page osu-page--generic" id="scores">
@@ -148,15 +78,5 @@
                 ])
             @endif
         </div>
-    @endif
-@endsection
-
-@section("script")
-    @parent
-
-    @if (isset($countries))
-        <script id="json-countries" type="application/json">
-            {!! json_encode($countries) !!}
-        </script>
     @endif
 @endsection

@@ -13,6 +13,16 @@ return [
     'see_channel' => 'към чат',
     'verifying' => 'Моля, потвърдете сесията, за преглед на известия',
 
+    'action_type' => [
+        '_' => 'всички',
+        'beatmapset' => 'бийтмапове',
+        'build' => 'промени',
+        'channel' => 'чат',
+        'forum_topic' => 'форум',
+        'news_post' => 'новини',
+        'user' => 'профил',
+    ],
+
     'filters' => [
         '_' => 'всички',
         'user' => 'профил',
@@ -140,15 +150,6 @@ return [
                 '_' => 'Отговор във форум',
                 'forum_topic_reply' => ':username отговори в ":title"',
                 'forum_topic_reply_compact' => ':username отговори',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => 'Стар форум за ЛС',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited непрочетено съобщение|:count_delimited непрочетени съобщения',
             ],
         ],
 

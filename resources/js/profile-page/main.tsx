@@ -13,7 +13,6 @@ import { error } from 'utils/ajax';
 import { classWithModifiers } from 'utils/css';
 import { bottomPage } from 'utils/html';
 import { hideLoadingOverlay, showLoadingOverlay } from 'utils/loading-overlay';
-import { pageChange } from 'utils/page-change';
 import { nextVal } from 'utils/seq';
 import { present } from 'utils/string';
 import { switchNever } from 'utils/switch-never';
@@ -97,9 +96,7 @@ export default class Main extends React.Component<Props> {
   }
 
   private get stickyHeaderOffset() {
-    return core.windowSize.isDesktop
-      ? core.stickyHeader.headerHeight + (this.pagesOffset?.getBoundingClientRect().height ?? 0)
-      : core.stickyHeader.headerHeight;
+    return core.stickyHeader.headerHeight + (this.pagesOffset?.getBoundingClientRect().height ?? 0);
   }
 
   constructor(props: Props) {
@@ -155,8 +152,6 @@ export default class Main extends React.Component<Props> {
       });
     }
 
-    pageChange();
-
     // preserve scroll if existing saved state but force position to reset
     // on refresh to avoid browser setting scroll position at the bottom on reload.
     // ...except Chrome sets it anyway sometimes.
@@ -205,7 +200,7 @@ export default class Main extends React.Component<Props> {
             <Detail controller={this.controller} />
           </div>
 
-          <div ref={this.pagesOffsetRef} className='hidden-xs page-extra-tabs'>
+          <div ref={this.pagesOffsetRef} className='page-extra-tabs'>
             {this.displayExtraTabs &&
               <div ref={this.tabs} className='page-mode page-mode--profile-page-extra'>
                 {this.displayedExtraPages.map((m) => (
@@ -388,7 +383,7 @@ export default class Main extends React.Component<Props> {
     }
 
     let preferred: Page | undefined;
-    const pageIds = [...matching.values()];
+    const pageIds = [...matching];
     // special case for bottom of page if there are multiple pages visible.
     if (bottomPage()) {
       preferred = last(pageIds);

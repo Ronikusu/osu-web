@@ -13,6 +13,16 @@ return [
     'see_channel' => 'accesați chat-ul',
     'verifying' => 'Verificați sesiunea pentru a vizualiza notificările',
 
+    'action_type' => [
+        '_' => 'tot',
+        'beatmapset' => 'beatmap-uri',
+        'build' => 'versiuni',
+        'channel' => 'chat',
+        'forum_topic' => 'forum',
+        'news_post' => 'știri',
+        'user' => 'profil',
+    ],
+
     'filters' => [
         '_' => 'tot',
         'user' => 'profil',
@@ -140,15 +150,6 @@ return [
                 '_' => 'Un nou răspuns pe forum',
                 'forum_topic_reply' => ':username a răspuns la ":title"',
                 'forum_topic_reply_compact' => ':username a răspuns',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => 'PM vechi forum',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => 'un mesaj necitit|:count_delimited mesaje necitite|:count_delimited de mesaje necitite',
             ],
         ],
 

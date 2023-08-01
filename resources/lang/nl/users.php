@@ -37,6 +37,7 @@ return [
         'blocked_count' => 'geblokkeerde gebruikers (:count)',
         'hide_profile' => 'profiel verbergen',
         'hide_comment' => 'verbergen',
+        'forum_post_text' => 'Deze post is verborgen.',
         'not_blocked' => 'Deze gebruiker is niet geblokkeerd.',
         'show_profile' => 'profiel weergeven',
         'show_comment' => 'tonen',
@@ -48,6 +49,7 @@ return [
     ],
 
     'card' => [
+        'gift_supporter' => 'Geef supporter tag cadeau',
         'loading' => 'Bezig met laden...',
         'send_message' => 'Bericht sturen',
     ],

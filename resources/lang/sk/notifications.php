@@ -13,6 +13,16 @@ return [
     'see_channel' => 'prejsť ku konverzáciám',
     'verifying' => '',
 
+    'action_type' => [
+        '_' => '',
+        'beatmapset' => '',
+        'build' => '',
+        'channel' => '',
+        'forum_topic' => '',
+        'news_post' => '',
+        'user' => '',
+    ],
+
     'filters' => [
         '_' => 'všetko',
         'user' => 'profil',
@@ -140,15 +150,6 @@ return [
                 '_' => '',
                 'forum_topic_reply' => '',
                 'forum_topic_reply_compact' => '',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => '',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => '',
             ],
         ],
 

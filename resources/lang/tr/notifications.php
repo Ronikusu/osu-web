@@ -13,6 +13,16 @@ return [
     'see_channel' => 'sohbete git',
     'verifying' => 'Bildirimleri görüntülemek için lütfen oturumunuzu doğrulayın',
 
+    'action_type' => [
+        '_' => 'hepsi',
+        'beatmapset' => 'haritalar',
+        'build' => 'sürümler',
+        'channel' => 'sohbet',
+        'forum_topic' => 'forum',
+        'news_post' => 'haberler',
+        'user' => 'profil',
+    ],
+
     'filters' => [
         '_' => 'hepsi',
         'user' => 'profil',
@@ -140,15 +150,6 @@ return [
                 '_' => 'Yeni forum yanıtı',
                 'forum_topic_reply' => ':username ":title" konusuna yanıt verdi.',
                 'forum_topic_reply_compact' => ':username yanıt verdi',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => 'Legacy Forum PM',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited okunmamış mesaj.|:count_delimited okunmamış mesaj',
             ],
         ],
 

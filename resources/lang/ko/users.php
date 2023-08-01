@@ -37,6 +37,7 @@ return [
         'blocked_count' => '차단된 유저 (:count)',
         'hide_profile' => '프로필 숨기기',
         'hide_comment' => '숨기기',
+        'forum_post_text' => '이 게시글은 숨겨져 있습니다.',
         'not_blocked' => '해당 유저는 차단되어있지 않습니다.',
         'show_profile' => '프로필 표시',
         'show_comment' => '보기',
@@ -48,6 +49,7 @@ return [
     ],
 
     'card' => [
+        'gift_supporter' => '서포터 선물하기',
         'loading' => '로딩 중...',
         'send_message' => '메시지 보내기',
     ],
@@ -82,7 +84,7 @@ return [
             'opening' => '계정 비활성화가 될 수 있는 이유는 다음과 같습니다:',
 
             'tos' => [
-                '_' => '해당 계정은 :community_rules 또는 :tos 를 위반했습니다.',
+                '_' => '해당 계정은 :community_rules 또는 :tos를 위반했습니다.',
                 'community_rules' => '커뮤니티 규칙',
                 'tos' => '이용 약관',
             ],

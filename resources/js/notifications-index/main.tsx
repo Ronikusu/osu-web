@@ -10,7 +10,6 @@ import { observer } from 'mobx-react';
 import { Name as NotificationTypeName, typeNames } from 'models/notification-type';
 import Stack from 'notification-widget/stack';
 import { NotificationContext, NotificationContextData } from 'notifications-context';
-import LegacyPm from 'notifications/legacy-pm';
 import NotificationController from 'notifications/notification-controller';
 import NotificationDeleteButton from 'notifications/notification-delete-button';
 import NotificationReadButton from 'notifications/notification-read-button';
@@ -35,6 +34,10 @@ export class Main extends React.Component {
     }));
   }
 
+  private get type() {
+    return this.controller.type;
+  }
+
   constructor(props: Record<string, never>, context: NotificationContextData) {
     super(props);
 
@@ -54,53 +57,50 @@ export class Main extends React.Component {
 
         <div className='osu-page osu-page--generic-compact'>
           <div className='notification-index'>
-            <div className='notification-index__actions'>
-              {this.renderMarkAsReadButton()}
-              {this.renderDeleteButton()}
-            </div>
+            {!this.type.isEmpty &&
+              <div className='notification-index__actions'>
+                {this.renderMarkAsReadButton()}
+                {this.renderDeleteButton()}
+              </div>
+            }
 
-            {this.renderLegacyPm()}
+            {this.type.isEmpty
+              ? this.type.isLoading
+                ? null
+                : trans('notifications.none')
+              : this.renderStacks()
+            }
 
-            <div className='notification-stacks'>
-              {this.renderStacks()}
-              {this.renderShowMore()}
-            </div>
+            {this.renderShowMore()}
           </div>
         </div>
       </div>
     );
   }
 
-  renderLegacyPm() {
-    if (this.controller.currentFilter != null) return;
-
-    return <LegacyPm />;
-  }
-
   renderShowMore() {
-    const type = this.controller.type;
-
     return (
       <ShowMoreLink
         callback={this.handleShowMore}
-        hasMore={type?.hasMore}
-        loading={type?.isLoading}
-        modifiers={['notification-group', 'notification-list']}
+        hasMore={this.type.hasMore}
+        loading={this.type.isLoading}
+        modifiers='notification-group'
       />
     );
   }
 
   renderStacks() {
-    const nodes: React.ReactNode[] = [];
-    for (const stack of this.controller.stacks) {
-      nodes.push(<Stack key={stack.id} stack={stack} />);
-    }
-
-    return nodes;
+    return (
+      <div className='notification-stacks'>
+        {this.controller.stacks.map((stack) => (
+          <Stack key={stack.id} stack={stack} />
+        ))}
+      </div>
+    );
   }
 
   private handleDelete = () => {
-    this.controller.type.delete();
+    this.type.delete();
   };
 
   private handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -119,29 +119,21 @@ export class Main extends React.Component {
   };
 
   private renderDeleteButton() {
-    const type = this.controller.type;
-
-    if (type.isEmpty) return null;
-
     return (
       <NotificationDeleteButton
-        isDeleting={type.isDeleting}
+        isDeleting={this.type.isDeleting}
         onDelete={this.handleDelete}
-        text={trans('notifications.delete', { type: trans(`notifications.filters.${type.name ?? '_'}`) })}
+        text={trans('notifications.delete', { type: trans(`notifications.action_type.${this.type.name ?? '_'}`) })}
       />
     );
   }
 
   private renderMarkAsReadButton() {
-    const type = this.controller.type;
-
-    if (type.isEmpty) return null;
-
     return (
       <NotificationReadButton
-        isMarkingAsRead={type.isMarkingAsRead}
+        isMarkingAsRead={this.controller.isMarkingCurrentTypeAsRead}
         onMarkAsRead={this.handleMarkAsRead}
-        text={trans('notifications.mark_read', { type: trans(`notifications.filters.${type.name ?? '_'}`) })}
+        text={trans('notifications.mark_read', { type: trans(`notifications.action_type.${this.type.name ?? '_'}`) })}
       />
     );
   }

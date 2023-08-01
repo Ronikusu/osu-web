@@ -13,6 +13,16 @@ return [
     'see_channel' => '前往聊天',
     'verifying' => '请验证会话以查看通知',
 
+    'action_type' => [
+        '_' => '全部',
+        'beatmapset' => '谱面',
+        'build' => '版本',
+        'channel' => '聊天',
+        'forum_topic' => '论坛',
+        'news_post' => '新闻',
+        'user' => '个人资料',
+    ],
+
     'filters' => [
         '_' => '所有',
         'user' => '个人资料',
@@ -142,15 +152,6 @@ return [
                 '_' => '论坛回复',
                 'forum_topic_reply' => ':username 回复了主题：“:title”',
                 'forum_topic_reply_compact' => ':username 回复',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => '旧论坛私信',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited 条未读消息',
             ],
         ],
 

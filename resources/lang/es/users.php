@@ -37,6 +37,7 @@ return [
         'blocked_count' => 'usuarios bloqueados (:count)',
         'hide_profile' => 'Ocultar perfil',
         'hide_comment' => 'ocultar',
+        'forum_post_text' => 'Esta publicación está oculta.',
         'not_blocked' => 'Ese usuario no está bloqueado.',
         'show_profile' => 'Mostrar perfil',
         'show_comment' => 'mostrar',
@@ -48,6 +49,7 @@ return [
     ],
 
     'card' => [
+        'gift_supporter' => 'Regalar etiqueta de supporter',
         'loading' => 'Cargando...',
         'send_message' => 'Enviar mensaje',
     ],
@@ -74,7 +76,7 @@ return [
 
         'if_mistake' => [
             '_' => 'Si cree que se trata de un error, puede ponerse en contacto con nosotros (por :email o haciendo clic en el "?" en la esquina inferior derecha de esta página). Tenga en cuenta que siempre confiamos plenamente en nuestras acciones, ya que se basan en datos muy sólidos. Nos reservamos el derecho de ignorar su petición si consideramos que está siendo intencionadamente deshonesto.',
-            'email' => 'correo',
+            'email' => 'correo electrónico',
         ],
 
         'reasons' => [
@@ -134,7 +136,7 @@ return [
     'logout_confirm' => '¿Seguro que desea cerrar la sesión? :(',
     'report' => [
         'button_text' => 'Reportar',
-        'comments' => 'Comentarios adicionales',
+        'comments' => 'Comentarios',
         'placeholder' => 'Por favor, proporcione cualquier información que crea que pueda ser útil.',
         'reason' => 'Motivo',
         'thanks' => '¡Gracias por reportar!',
@@ -415,7 +417,7 @@ return [
             'title' => '¡Usuario no encontrado! ;_;',
         ],
         'page' => [
-            'button' => 'Editar página de perfil',
+            'button' => 'editar página de perfil',
             'description' => '<strong>¡yo!</strong> es una área personal y personalizable en tu perfil.',
             'edit_big' => 'Editar ¡yo!',
             'placeholder' => 'Escriba el contenido de la página aquí',
@@ -439,7 +441,7 @@ return [
         'stats' => [
             'hit_accuracy' => 'Precisión',
             'level' => 'Nivel :level',
-            'level_progress' => 'Progreso al siguiente nivel',
+            'level_progress' => 'progreso al siguiente nivel',
             'maximum_combo' => 'Combo máximo',
             'medals' => 'Medallas',
             'play_count' => 'Conteo de jugadas',

@@ -13,6 +13,16 @@ return [
     'see_channel' => 'menjen a csevegéshez',
     'verifying' => 'Az értesítések megtekintéséhez hitelesítse a munkamenetet',
 
+    'action_type' => [
+        '_' => 'összes',
+        'beatmapset' => 'beatmapek',
+        'build' => 'verziók',
+        'channel' => 'csevegés',
+        'forum_topic' => 'fórum',
+        'news_post' => 'újdonságok',
+        'user' => 'profil',
+    ],
+
     'filters' => [
         '_' => 'összes',
         'user' => 'profil',
@@ -141,15 +151,6 @@ return [
                 '_' => 'Új fórum válasz',
                 'forum_topic_reply' => ':username válaszolt a fórum témára ":title".',
                 'forum_topic_reply_compact' => ':username válaszolt',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => 'Hivatalos PM fórum',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited olvasatlan üzenet.|:count_delimited olvasatlan üzenet.',
             ],
         ],
 

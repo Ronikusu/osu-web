@@ -49,6 +49,15 @@
   --beatmapset-discussion-colour--resolved: hsl(var(--hsl-lime-3));
   --beatmapset-discussion-colour--review: hsl(var(--hsl-c2));
   --beatmapset-discussion-colour--suggestion: hsl(var(--hsl-orange-3));
+
+  --forum-bg: hsl(var(--hsl-h1));
+  --forum-text: @link-color;
+  --forum-text: @link-hover-color;
+
+  --navbar-height: @navbar-height;
+  @media @desktop {
+    --navbar-height: @nav2-height--pinned;
+  }
 }
 
 html, body {

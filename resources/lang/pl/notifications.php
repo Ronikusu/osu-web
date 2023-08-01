@@ -13,6 +13,16 @@ return [
     'see_channel' => 'przejdź do czatu',
     'verifying' => 'Zweryfikuj sesję, by wyświetlić powiadomienia',
 
+    'action_type' => [
+        '_' => 'wszystkie',
+        'beatmapset' => 'beatmapy',
+        'build' => 'zmiany',
+        'channel' => 'czat',
+        'forum_topic' => 'forum',
+        'news_post' => 'aktualności',
+        'user' => 'profil',
+    ],
+
     'filters' => [
         '_' => 'wszystkie',
         'user' => 'profil',
@@ -140,15 +150,6 @@ return [
                 '_' => 'Nowa odpowiedź na forum',
                 'forum_topic_reply' => 'Użytkownik :username odpowiedział w wątku „:title”',
                 'forum_topic_reply_compact' => 'Użytkownik :username odpowiedział',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => 'Skrzynka odbiorcza starego forum',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited nieprzeczytana wiadomość|:count_delimited nieprzeczytane wiadomości|:count_delimited nieprzeczytanych wiadomości',
             ],
         ],
 

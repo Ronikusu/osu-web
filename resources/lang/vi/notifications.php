@@ -13,6 +13,16 @@ return [
     'see_channel' => 'đi đến trò chuyện',
     'verifying' => 'Vui lòng xác minh phiên để xem thông báo',
 
+    'action_type' => [
+        '_' => 'tất cả',
+        'beatmapset' => 'beatmap',
+        'build' => 'xây dựng',
+        'channel' => 'trò chuyện',
+        'forum_topic' => 'diễn đàn',
+        'news_post' => 'tin tức',
+        'user' => 'hồ sơ',
+    ],
+
     'filters' => [
         '_' => 'tất cả',
         'user' => 'trang cá nhân',
@@ -141,15 +151,6 @@ return [
                 '_' => 'Bình luận mới trên forum',
                 'forum_topic_reply' => ':username đã trả lời ":title"',
                 'forum_topic_reply_compact' => ':username đã trả lời',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => 'Diễn đàn kế thừa PM',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited tin nhắn chưa đọc|:count_delimited tin nhắn chưa đọc',
             ],
         ],
 

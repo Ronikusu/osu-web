@@ -20,6 +20,12 @@ return [
             'title' => 'Email',
         ],
 
+        'legacy_api' => [
+            'api' => 'api',
+            'irc' => 'irc',
+            'title' => 'API lawas',
+        ],
+
         'password' => [
             'current' => 'kata sandi saat ini',
             'new' => 'kata sandi baru',
@@ -28,7 +34,13 @@ return [
         ],
 
         'profile' => [
+            'country' => '',
             'title' => 'Profil',
+
+            'country_change' => [
+                '_' => "",
+                'update_link' => '',
+            ],
 
             'user' => [
                 'user_discord' => '',
@@ -95,7 +107,7 @@ return [
     ],
 
     'privacy' => [
-        'friends_only' => 'Blokir pesan pribadi dari orang yang tidak ada dalam daftar teman Anda',
+        'friends_only' => 'blokir pesan pribadi dari pengguna yang tidak termasuk dalam daftar teman',
         'hide_online' => 'sembunyikan keberadaan online Anda',
         'title' => 'Kebijakan Privasi',
     ],

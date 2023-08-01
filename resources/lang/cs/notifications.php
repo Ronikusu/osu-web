@@ -13,6 +13,16 @@ return [
     'see_channel' => 'přejít na chat',
     'verifying' => 'Prosím ověřte relaci pro zobrazení oznámení',
 
+    'action_type' => [
+        '_' => 'vše ',
+        'beatmapset' => 'beatmapy',
+        'build' => 'buildy',
+        'channel' => 'chat',
+        'forum_topic' => 'fórum',
+        'news_post' => 'novinky',
+        'user' => 'profil',
+    ],
+
     'filters' => [
         '_' => 'vše',
         'user' => 'profil',
@@ -140,15 +150,6 @@ return [
                 '_' => 'Nová odpověď na fórum',
                 'forum_topic_reply' => ':username odpověděl na ":title"',
                 'forum_topic_reply_compact' => ':username odpověděl',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => 'SZ původního fóra',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited nepřečtená zpráva|:count_delimited nepřečtené zprávy|:count_delimited nepřečtených zpráv',
             ],
         ],
 

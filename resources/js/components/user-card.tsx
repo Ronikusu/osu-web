@@ -8,9 +8,10 @@ import { route } from 'laroute';
 import * as _ from 'lodash';
 import core from 'osu-core-singleton';
 import * as React from 'react';
-import { classWithModifiers } from 'utils/css';
+import { classWithModifiers, Modifiers } from 'utils/css';
 import { trans } from 'utils/lang';
 import { present } from 'utils/string';
+import { giftSupporterTagUrl } from 'utils/url';
 import FlagCountry from './flag-country';
 import FollowUserMappingButton from './follow-user-mapping-button';
 import { PopupMenuPersistent } from './popup-menu-persistent';
@@ -28,7 +29,7 @@ export const viewModes: ViewMode[] = ['card', 'list', 'brick'];
 interface Props {
   activated: boolean;
   mode: ViewMode;
-  modifiers: string[];
+  modifiers?: Modifiers;
   user?: UserJson | null;
 }
 
@@ -41,7 +42,6 @@ export class UserCard extends React.PureComponent<Props, State> {
   static defaultProps = {
     activated: false,
     mode: 'card',
-    modifiers: [],
   };
 
   static userLoading: UserJson = {
@@ -114,15 +114,18 @@ export class UserCard extends React.PureComponent<Props, State> {
       return <UserCardBrick {...this.props} user={this.props.user} />;
     }
 
-    const modifiers = this.props.modifiers.slice();
-    // Setting the active modifiers from the parent causes unwanted renders unless deep comparison is used.
-    modifiers.push(this.props.activated ? 'active' : 'highlightable');
-    modifiers.push(this.props.mode);
+    const blockClass = classWithModifiers(
+      'user-card',
+      this.props.modifiers,
+      this.props.mode,
+      // Setting the active modifiers from the parent causes unwanted renders unless deep comparison is used.
+      this.props.activated ? 'active' : 'highlightable',
+    );
 
     this.url = this.isUserVisible ? route('users.show', { user: this.user.id }) : undefined;
 
     return (
-      <div className={classWithModifiers('user-card', modifiers)}>
+      <div className={blockClass}>
         {this.renderBackground()}
 
         <div className='user-card__card'>
@@ -285,6 +288,15 @@ export class UserCard extends React.PureComponent<Props, State> {
             {` ${trans('users.card.send_message')}`}
           </a>
         )}
+
+        <a
+          className='simple-menu__item'
+          href={giftSupporterTagUrl(this.user)}
+          onClick={dismiss}
+        >
+          <span className='fas fa-gift' />
+          {` ${trans('users.card.gift_supporter')}`}
+        </a>
 
         <BlockButton modifiers='inline' onClick={dismiss} userId={this.user.id} wrapperClass='simple-menu__item' />
 

@@ -13,6 +13,16 @@ return [
     'see_channel' => '',
     'verifying' => '',
 
+    'action_type' => [
+        '_' => '',
+        'beatmapset' => '',
+        'build' => '',
+        'channel' => '',
+        'forum_topic' => '',
+        'news_post' => '',
+        'user' => '',
+    ],
+
     'filters' => [
         '_' => '',
         'user' => '',
@@ -140,15 +150,6 @@ return [
                 '_' => 'Νέα απάντηση στο forum',
                 'forum_topic_reply' => 'O χρήστης:username απάντησε στο θέμα του forum ":title".',
                 'forum_topic_reply_compact' => '',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => 'Προσωπικά Μηνύματα του Παλαιότερου Forum',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited αδιάβαστο μήνυμα.|:count_delimited αδιάβαστα μηνύματα.',
             ],
         ],
 

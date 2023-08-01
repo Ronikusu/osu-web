@@ -35,10 +35,10 @@ return [
     ],
     'beatmaps' => [
         'max' => 50,
-        'max-scores' => 50,
+        'max_scores' => 100,
 
         'difficulty_cache' => [
-            'server_url' => presence(env('BEATMAPS_DIFFICULTY_CACHE_SERVER_URL')) ?? 'http://localhost:5000',
+            'server_url' => presence(env('BEATMAPS_DIFFICULTY_CACHE_SERVER_URL')) ?? 'http://localhost:5001',
         ],
     ],
     'beatmap_processor' => [
@@ -226,9 +226,6 @@ return [
             'restriction' => presence(env('OSU_URL_USER_RESTRICTION')) ?? '/wiki/Help_centre/Account_restrictions',
             'rules' => '/wiki/Osu!:Rules',
         ],
-        'rankings' => [
-            'kudosu' => '/p/kudosu',
-        ],
         'testflight' => [
             'public' => env('TESTFLIGHT_LINK'),
             'supporter' => env('TESTFLIGHT_LINK_SUPPORTER'),
@@ -267,10 +264,24 @@ return [
         'registration_mode' => presence(env('REGISTRATION_MODE')) ?? 'client',
         'super_friendly' => array_map('intval', explode(' ', env('SUPER_FRIENDLY', '3'))),
         'ban_persist_days' => get_int(env('BAN_PERSIST_DAYS')) ?? 28,
+
+        'country_change' => [
+            'max_mixed_months' => get_int(env('USER_COUNTRY_CHANGE_MAX_MIXED_MONTHS')) ?? 2,
+            'min_months' => get_int(env('USER_COUNTRY_CHANGE_MIN_MONTHS')) ?? 6,
+        ],
     ],
     'user_report_notification' => [
-        'endpoint_moderation' => presence(env('USER_REPORT_NOTIFICATION_ENDPOINT_MODERATION')),
         'endpoint_cheating' => presence(env('USER_REPORT_NOTIFICATION_ENDPOINT_CHEATING')),
+        'endpoint_moderation' => presence(env('USER_REPORT_NOTIFICATION_ENDPOINT_MODERATION')),
+
+        'endpoint' => [
+            'beatmapset_discussion' => presence(env('USER_REPORT_NOTIFICATION_ENDPOINT_BEATMAPSET_DISCUSSION')),
+            'beatmapset' => presence(env('USER_REPORT_NOTIFICATION_ENDPOINT_BEATMAPSET')),
+            'chat' => presence(env('USER_REPORT_NOTIFICATION_ENDPOINT_CHAT')),
+            'comment' => presence(env('USER_REPORT_NOTIFICATION_ENDPOINT_COMMENT')),
+            'forum' => presence(env('USER_REPORT_NOTIFICATION_ENDPOINT_FORUM')),
+            'user' => presence(env('USER_REPORT_NOTIFICATION_ENDPOINT_USER')),
+        ],
     ],
     'wiki' => [
         'branch' => presence(env('WIKI_BRANCH'), 'master'),

@@ -13,6 +13,16 @@ return [
     'see_channel' => 'go to chat',
     'verifying' => 'Please verify session to view notifications',
 
+    'action_type' => [
+        '_' => 'all',
+        'beatmapset' => 'beatmaps',
+        'build' => 'builds',
+        'channel' => 'chat',
+        'forum_topic' => 'forum',
+        'news_post' => 'news',
+        'user' => 'profile',
+    ],
+
     'filters' => [
         '_' => 'all',
         'user' => 'profile',
@@ -140,15 +150,6 @@ return [
                 '_' => 'New forum reply',
                 'forum_topic_reply' => ':username replied to ":title"',
                 'forum_topic_reply_compact' => ':username replied',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => 'Legacy Forum PM',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited unread message|:count_delimited unread messages',
             ],
         ],
 

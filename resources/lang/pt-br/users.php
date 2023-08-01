@@ -37,6 +37,7 @@ return [
         'blocked_count' => 'usuários bloqueados: (:count)',
         'hide_profile' => 'Ocultar perfil',
         'hide_comment' => 'ocultar',
+        'forum_post_text' => 'Essa publicação está oculta.',
         'not_blocked' => 'Este usuário não está bloqueado.',
         'show_profile' => 'Exibir perfil',
         'show_comment' => 'exibir',
@@ -48,6 +49,7 @@ return [
     ],
 
     'card' => [
+        'gift_supporter' => 'Presentear supporter tag',
         'loading' => 'Carregando...',
         'send_message' => 'enviar mensagem',
     ],
@@ -78,7 +80,7 @@ return [
         ],
 
         'reasons' => [
-            'compromised' => 'Sua conta foi considerada comprometida. Ela pode estar desativada temporariamente enquanto sua identidade for confirmada.',
+            'compromised' => 'Sua conta foi considerada comprometida. Ela pode estar desativada temporariamente enquanto sua identidade está sendo confirmada.',
             'opening' => 'Há vários motivos que podem resultar na desativação da sua conta:',
 
             'tos' => [
@@ -116,7 +118,7 @@ return [
         'username' => 'Nome de Usuário',
 
         'beta' => [
-            'main' => 'Acesso beta está restrito apenas para usuários privilegiados.',
+            'main' => 'Acesso Beta está restrito apenas para usuários privilegiados.',
             'small' => '(osu!supporters terão acesso em breve)',
         ],
     ],

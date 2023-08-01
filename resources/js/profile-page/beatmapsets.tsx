@@ -1,7 +1,7 @@
 // Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
 // See the LICENCE file in the repository root for full licence text.
 
-import BeatmapsetPanel from 'components/beatmapset-panel';
+import BeatmapsetPanel from 'beatmapset-panel';
 import LazyLoad from 'components/lazy-load';
 import ProfilePageExtraSectionTitle from 'components/profile-page-extra-section-title';
 import ShowMoreLink from 'components/show-more-link';
@@ -88,14 +88,12 @@ export default class Beatmapsets extends React.Component<ExtraPageProps> {
               </div>
             ))}
 
-            <div className='osu-layout__col'>
-              <ShowMoreLink
-                {...state.pagination}
-                callback={this.onShowMore}
-                data={section.urlType}
-                modifiers='profile-page'
-              />
-            </div>
+            <ShowMoreLink
+              {...state.pagination}
+              callback={this.onShowMore}
+              data={section.urlType}
+              modifiers='profile-page'
+            />
           </div>
         )}
       </React.Fragment>

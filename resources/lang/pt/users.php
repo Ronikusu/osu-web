@@ -37,6 +37,7 @@ return [
         'blocked_count' => 'utilizadores bloqueados (:count)',
         'hide_profile' => 'Ocultar perfil',
         'hide_comment' => 'ocultar',
+        'forum_post_text' => 'Esta publicação está oculta.',
         'not_blocked' => 'Esse utilizador não está bloqueado.',
         'show_profile' => 'Mostrar perfil',
         'show_comment' => 'mostrar',
@@ -48,6 +49,7 @@ return [
     ],
 
     'card' => [
+        'gift_supporter' => 'Oferecer uma etiqueta de apoiante',
         'loading' => 'A carregar...',
         'send_message' => 'Enviar mensagem',
     ],

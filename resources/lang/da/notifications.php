@@ -13,6 +13,16 @@ return [
     'see_channel' => 'gå til chat',
     'verifying' => 'Bekræft venligst session for at se notifikationer',
 
+    'action_type' => [
+        '_' => '',
+        'beatmapset' => '',
+        'build' => '',
+        'channel' => '',
+        'forum_topic' => '',
+        'news_post' => '',
+        'user' => '',
+    ],
+
     'filters' => [
         '_' => 'alle',
         'user' => 'profil',
@@ -140,15 +150,6 @@ return [
                 '_' => 'Nyt forum svar',
                 'forum_topic_reply' => ':username svarede til forum emne ":title".',
                 'forum_topic_reply_compact' => ':username svarede',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => 'Legacy Forum PM',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited ulæst besked|:count_delimited ulæste beskeder',
             ],
         ],
 

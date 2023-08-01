@@ -13,6 +13,16 @@ return [
     'see_channel' => 'ga naar chat',
     'verifying' => 'Verifieer de sessie om meldingen te bekijken',
 
+    'action_type' => [
+        '_' => 'alle',
+        'beatmapset' => 'beatmaps',
+        'build' => 'versies',
+        'channel' => 'chat',
+        'forum_topic' => 'forum',
+        'news_post' => 'nieuws',
+        'user' => 'profiel',
+    ],
+
     'filters' => [
         '_' => 'alle',
         'user' => 'profiel',
@@ -140,15 +150,6 @@ return [
                 '_' => 'Nieuw forum antwoord',
                 'forum_topic_reply' => ':username antwoordde op forumonderwerp ":title".',
                 'forum_topic_reply_compact' => ':username antwoordde',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => 'Ouder Forum PM',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited ongelezen bericht|:count_delimited berichten',
             ],
         ],
 

@@ -9,7 +9,7 @@ import UserJson from 'interfaces/user-json';
 import { findLast } from 'lodash';
 import { action, computed, makeObservable } from 'mobx';
 import { observer } from 'mobx-react';
-import { deletedUser } from 'models/user';
+import { deletedUserJson } from 'models/user';
 import core from 'osu-core-singleton';
 import * as React from 'react';
 import { badgeGroup, canModeratePosts, formatTimestamp, makeUrl, startingPost } from 'utils/beatmapset-discussion-helper';
@@ -28,9 +28,10 @@ const bn = 'beatmap-discussion';
 
 interface PropsBase {
   beatmapset: BeatmapsetExtendedJson;
-  currentBeatmap: BeatmapExtendedJson;
+  currentBeatmap: BeatmapExtendedJson | null;
   isTimelineVisible: boolean;
   parentDiscussion?: BeatmapsetDiscussionJson | null;
+  readonly: boolean;
   readPostIds?: Set<number>;
   showDeleted: boolean;
   users: Partial<Record<number | string, UserJson>>;
@@ -66,6 +67,7 @@ export class Discussion extends React.Component<Props> {
   static contextType = DiscussionsStateContext;
   static defaultProps = {
     preview: false,
+    readonly: false,
   };
 
   declare context: React.ContextType<typeof DiscussionsStateContext>;
@@ -80,7 +82,7 @@ export class Discussion extends React.Component<Props> {
   private get canBeRepliedTo() {
     return !downloadLimited(this.props.beatmapset)
       && (!this.props.beatmapset.discussion_locked || canModeratePosts())
-      && (this.props.discussion.beatmap_id == null || this.props.currentBeatmap.deleted_at == null);
+      && (this.props.discussion.beatmap_id == null || this.props.currentBeatmap?.deleted_at == null);
   }
 
   @computed
@@ -112,7 +114,7 @@ export class Discussion extends React.Component<Props> {
 
     this.lastResolvedState = false;
 
-    const user = this.props.users[this.props.discussion.user_id] ?? deletedUser.toJson();
+    const user = this.props.users[this.props.discussion.user_id] ?? deletedUserJson;
     const group = badgeGroup({
       beatmapset: this.props.beatmapset,
       currentBeatmap: this.props.currentBeatmap,
@@ -211,7 +213,7 @@ export class Discussion extends React.Component<Props> {
   }
 
   private renderPost(post: BeatmapsetDiscussionPostJson, type: 'discussion' | 'reply') {
-    const user = this.props.users[post.user_id] ?? deletedUser.toJson();
+    const user = this.props.users[post.user_id] ?? deletedUserJson;
 
     if (post.system) {
       return (
@@ -227,6 +229,7 @@ export class Discussion extends React.Component<Props> {
         discussion={this.props.discussion}
         post={post}
         read={this.isRead(post)}
+        readonly={this.props.readonly}
         resolvedSystemPostId={this.resolvedSystemPostId}
         type={type}
         user={user}
@@ -287,7 +290,7 @@ export class Discussion extends React.Component<Props> {
 
   private renderTimestamp() {
     return (
-      <div className='beatmap-discussion-timestamp'>
+      <div className={classWithModifiers('beatmap-discussion-timestamp', { sticky: this.props.isTimelineVisible })}>
         {this.props.discussion.timestamp != null && this.props.isTimelineVisible && <div className="beatmap-discussion-timestamp__point" />}
         <div className="beatmap-discussion-timestamp__icons-container">
           <div className="beatmap-discussion-timestamp__icons">

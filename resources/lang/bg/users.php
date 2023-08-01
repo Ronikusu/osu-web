@@ -37,6 +37,7 @@ return [
         'blocked_count' => 'блокирани потребители (:count)',
         'hide_profile' => 'Скрий профил',
         'hide_comment' => 'скрий',
+        'forum_post_text' => 'Тази публикация е скрита.',
         'not_blocked' => 'Този потребител не е блокиран.',
         'show_profile' => 'Покажи профил',
         'show_comment' => 'покажи',
@@ -48,6 +49,7 @@ return [
     ],
 
     'card' => [
+        'gift_supporter' => '',
         'loading' => 'Зареждане...',
         'send_message' => 'изпрати съобщение',
     ],

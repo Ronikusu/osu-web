@@ -13,6 +13,16 @@ return [
     'see_channel' => 'схадзіць у чат',
     'verifying' => 'Калі ласка, пацвердзіце сеанс для прагляду апавяшчэнняў',
 
+    'action_type' => [
+        '_' => 'усё',
+        'beatmapset' => 'бітмапы',
+        'build' => 'зборкі',
+        'channel' => 'чат',
+        'forum_topic' => 'форум',
+        'news_post' => 'навіны',
+        'user' => 'профіль',
+    ],
+
     'filters' => [
         '_' => 'усе',
         'user' => 'профіль',
@@ -140,15 +150,6 @@ return [
                 '_' => 'Новы адказ на форуме',
                 'forum_topic_reply' => 'карыстальнік :username адказаў у тэме ":title".',
                 'forum_topic_reply_compact' => ':username адказаў',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => 'Правілы Forum PM',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited непрачытанае паведамленне.|:count_delimited ннепрачытанныя паведамленні.',
             ],
         ],
 

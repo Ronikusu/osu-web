@@ -13,6 +13,16 @@ return [
     'see_channel' => 'ir para o chat',
     'verifying' => 'Por favor verifique a sessão para ver as notificações',
 
+    'action_type' => [
+        '_' => 'todas',
+        'beatmapset' => 'beatmaps',
+        'build' => 'versões',
+        'channel' => 'chat',
+        'forum_topic' => 'fórum',
+        'news_post' => 'notícias',
+        'user' => 'perfil',
+    ],
+
     'filters' => [
         '_' => 'tudo',
         'user' => 'perfil',
@@ -140,15 +150,6 @@ return [
                 '_' => 'Nova resposta no fórum',
                 'forum_topic_reply' => ':username respondeu ao tópico ":title" do fórum.',
                 'forum_topic_reply_compact' => ':username respondeu',
-            ],
-        ],
-
-        'legacy_pm' => [
-            '_' => 'Mensagens Privadas do Fórum Legado',
-
-            'legacy_pm' => [
-                '_' => '',
-                'legacy_pm' => ':count_delimited mensagem não lida|:count_delimited mensagens não lidas',
             ],
         ],
 

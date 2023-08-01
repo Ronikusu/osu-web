@@ -24,7 +24,7 @@ return [
     'forum' => [
         '_' => 'ฟอรัม',
         'topic_logs_controller' => [
-            'index' => '',
+            'index' => 'บันทึกหัวข้อ',
         ],
     ],
     'main' => [
@@ -41,17 +41,17 @@ return [
             '_' => 'การสนทนาเกี่ยวกับ Beatmap',
         ],
         'beatmap_packs_controller' => [
-            '_' => 'บีทแมพแพ็ค',
+            '_' => 'แพ็คบีทแมพ',
         ],
         'beatmapset_discussion_votes_controller' => [
-            '_' => 'โหวตการสนทนา Beatmap',
+            '_' => 'โหวตการสนทนาบีทแมพ',
         ],
         'beatmapset_events_controller' => [
-            '_' => 'ประวัติ Beatmap',
+            '_' => 'ประวัติบีทแมพ',
         ],
         'beatmapsets_controller' => [
-            'discussion' => 'การสนทนาเกี่ยวกับ Beatmap',
-            'index' => 'รายการ Beatmap',
+            'discussion' => 'การสนทนาเกี่ยวกับบีทแมพ',
+            'index' => 'รายการบีทแมพ',
             'show' => 'ข้อมูลบีทแมพ',
         ],
         'changelog_controller' => [
@@ -74,7 +74,7 @@ return [
             'index' => 'หน้าหลัก',
             'search' => 'ค้นหา',
             'support_the_game' => 'สนับสนุนเกมนี้',
-            'testflight' => 'TestFlight',
+            'testflight' => 'บินเที่ยว',
         ],
         'legal_controller' => [
             '_' => 'ข้อมูล',
@@ -109,7 +109,7 @@ return [
         ],
         'users_controller' => [
             '_' => 'ข้อมูลผู้เล่น',
-            'create' => '',
+            'create' => 'สร้างบัญชี',
             'disabled' => 'การแจ้งเตือน',
         ],
         'wiki_controller' => [

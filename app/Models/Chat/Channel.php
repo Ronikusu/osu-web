@@ -397,16 +397,16 @@ class Channel extends Model
             $this->validationErrors()->add('name', 'required');
         }
 
-        foreach (static::MAX_FIELD_LENGTHS as $field => $limit) {
-            if ($this->isDirty($field)) {
-                $val = $this->$field;
-                if ($val !== null && mb_strlen($val) > $limit) {
-                    $this->validationErrors()->add($field, 'too_long', ['limit' => $limit]);
-                }
-            }
-        }
+        $this->validateDbFieldLengths();
 
         return $this->validationErrors()->isEmpty();
+    }
+
+    public function messageLengthLimit(): int
+    {
+        return $this->isAnnouncement()
+            ? static::ANNOUNCE_MESSAGE_LENGTH_LIMIT
+            : config('osu.chat.message_length_limit');
     }
 
     public function multiplayerMatch()
@@ -437,7 +437,7 @@ class Channel extends Model
             throw new API\ChatMessageEmptyException(osu_trans('api.error.chat.empty'));
         }
 
-        $maxLength = $this->isAnnouncement() ? static::ANNOUNCE_MESSAGE_LENGTH_LIMIT : config('osu.chat.message_length_limit');
+        $maxLength = $this->messageLengthLimit();
         if (mb_strlen($content, 'UTF-8') > $maxLength) {
             throw new API\ChatMessageTooLongException(osu_trans('api.error.chat.too_long'));
         }
@@ -617,7 +617,7 @@ class Channel extends Model
         }
     }
 
-    public function validationErrorsTranslationPrefix()
+    public function validationErrorsTranslationPrefix(): string
     {
         return 'chat.channel';
     }

@@ -37,6 +37,7 @@ return [
         'blocked_count' => 'utilisateurs bloqués (:count)',
         'hide_profile' => 'Masquer le profil',
         'hide_comment' => 'masquer',
+        'forum_post_text' => 'Ce post est masqué.',
         'not_blocked' => 'Cet utilisateur n’est pas bloqué.',
         'show_profile' => 'Afficher le profil',
         'show_comment' => 'afficher',
@@ -48,6 +49,7 @@ return [
     ],
 
     'card' => [
+        'gift_supporter' => 'Offrir un tag supporter',
         'loading' => 'Chargement...',
         'send_message' => 'envoyer un message',
     ],
@@ -235,7 +237,7 @@ return [
                     'title' => 'Beatmaps loved',
                 ],
                 'nominated' => [
-                    'title' => 'Beatmaps classées nommées',
+                    'title' => 'Beatmaps classées nominées',
                 ],
                 'pending' => [
                     'title' => 'Beatmaps en attente',
@@ -327,7 +329,7 @@ return [
                 'title' => 'moi !',
             ],
             'medals' => [
-                'empty' => "Cet utilisateur n'en a encore jamais reçue. ;_;",
+                'empty' => "Cet utilisateur n'en a encore jamais reçu. ;_;",
                 'recent' => 'Les plus récentes',
                 'title' => 'Médailles',
             ],
@@ -377,7 +379,7 @@ return [
             ],
             'account_standing' => [
                 'title' => 'Statut du compte',
-                'bad_standing' => "Le compte de <strong>:username</strong> n'est pas dans un bon statut :(",
+                'bad_standing' => "Le compte de :username ne se tient pas bien :(",
                 'remaining_silence' => '<strong>:username</strong> pourra de nouveau parler dans :duration.',
 
                 'recent_infringements' => [
